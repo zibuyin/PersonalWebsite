@@ -1,0 +1,50 @@
+html {
+    font-family: "Quicksand", sans-serif;
+    color: white;
+    background-color: rgb(26, 23, 33);
+}
+
+.homepage {
+    margin: 15px;
+}
+
+.homepage-cards-container {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+/* General cards CSS */
+.homepage-cards {
+    background-color: rgb(74, 67, 90);
+    padding: 10px;
+    border-radius: 7px;
+}
+
+/* Specific to profile card */
+.profile-card {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+/* The name part */
+.name-title {
+    font-size: 22px;
+    margin: 0;
+    padding: 0;
+}
+
+/* Highliting name :3 */
+.name-colorgradient {
+    background-image: linear-gradient(to right, rgb(161, 152, 244), rgb(244, 94, 255));
+    color: transparent;
+    font-weight: 700;
+    background-clip: text;
+}
+
+.pfp {
+    width: 128px;
+    /* Circular pfp */
+    /* border-radius: 64px; */
+}
