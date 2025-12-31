@@ -1,7 +1,19 @@
+:root {
+    --color-bg: rgb(26, 23, 33);
+    --text-primary: rgb(255, 255, 255);
+    --primary: rgb(244, 94, 255);
+    --secondary: rgb(161, 152, 244);
+}
+
+@font-face {
+    font-family: Quicksand;
+    src: url(fonts/Quicksand/Quicksand-VariableFont_wght.ttf);
+}
+
 html {
-    font-family: "Quicksand", sans-serif;
-    color: white;
-    background-color: rgb(26, 23, 33);
+    font-family: "Quicksand";
+    color: var(--text-primary);
+    background-color: var(--color-bg);
 }
 
 .homepage {
@@ -18,7 +30,7 @@ html {
 .homepage-cards {
     background-color: rgb(74, 67, 90);
     padding: 10px;
-    border-radius: 7px;
+    border-radius: 10px;
 }
 
 /* Specific to profile card */
@@ -37,7 +49,7 @@ html {
 
 /* Highliting name :3 */
 .name-colorgradient {
-    background-image: linear-gradient(to right, rgb(161, 152, 244), rgb(244, 94, 255));
+    background-image: linear-gradient(to right, var(--secondary), var(--primary));
     color: transparent;
     font-weight: 700;
     background-clip: text;
@@ -47,4 +59,18 @@ html {
     width: 128px;
     /* Circular pfp */
     /* border-radius: 64px; */
+    border-radius: 10px;
+}
+
+.about-me-list {
+    padding-left: 22px;
+    margin-right: 28px;
+}
+
+li {
+    padding-bottom: 5px;
+}
+
+.email-text {
+    font-style: ;
 }
