@@ -9,7 +9,7 @@ class SiteHeader extends HTMLElement {
 
             <div class="navbar">
             <a class="snow-toggle" onClick="snowToggleHandler()"><i class="fa-solid fa-snowflake"></i></a>
-                <a href="/frontend/index.html">Home</a>
+                <a href="/index.html">Home</a>
                 <a href="/frontend/pages/projects.html">Projects</a>
                 <a>About</a>
                 <a>Contact</a>
