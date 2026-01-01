@@ -5,6 +5,7 @@
     --secondary: rgb(161, 152, 244);
 
     --card-bg1: rgb(44, 38, 57);
+    --header-bg: rgb(26, 23, 33, 0.5);
     /* --card-bg3: TODO */
     ;
     /* padding: 0;
@@ -22,23 +23,27 @@ html {
     font-family: "Quicksand";
     color: var(--text-primary);
     background-color: var(--color-bg);
-    width: 100vw;
+    overflow-x: hidden;
 }
 
 body {
     padding: 0;
     margin: 0;
+    overflow-x: hidden;
 }
 
 /* ========== HEADER ========== */
 
 header {
 
-    background-color: var(--card-bg1);
+    background-color: var(--header-bg);
     width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
+    position: fixed;
+    top: 0;
+    /* height: 35px; */
 }
 
 .header-title {
@@ -122,6 +127,9 @@ header {
 
 }
 
+.homepage {
+    margin-top: 60px;
+}
 
 /* General cards CSS */
 .homepage-cards {
@@ -130,6 +138,7 @@ header {
     border-radius: 12px;
     /* width: fit-content; */
     max-width: 96vw;
+
     /* box-shadow: 0 0 5px rgb(106, 101, 152); */
 
 }
@@ -143,7 +152,7 @@ header {
 }
 
 /* The name part */
-.name-title {
+.card-title {
     font-size: 22px;
     margin: 0;
     padding: 0;
@@ -199,8 +208,21 @@ li {
 /* ========== FOOTER ========== */
 
 footer {
-    display: block;
-    position: absolute;
+    /* display: block; */
+    /* position: fixed; */
     bottom: 0;
-    margin: 2vw;
+    /* padding: 10px; */
+    padding-left: 2vw;
+    padding-right: 2vw;
+    padding-bottom: 2px;
+    border-top: solid var(--card-bg1);
+    /* background-color: red; */
+    width: 100%;
+}
+
+.github-label {
+    padding: 0px;
+    font-size: 20px;
+    color: var(--secondary);
+    text-decoration: none;
 }

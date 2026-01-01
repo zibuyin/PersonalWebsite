@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="snow.compiled.css" />
-    <script src="scripts/script.js"></script>
+    <script src="scripts/script.js" defer></script>
 
     <!-- Icons -->
     <script src="https://kit.fontawesome.com/11fde4d098.js" crossorigin="anonymous"></script>
@@ -20,7 +20,7 @@
 </head>
 
 <body>
-    <div class="snow"></div>
+
     <header>
         <h1 class="header-title">Nathan :D</h1>
         <img class="PHONE-pfp" src="https://ca.slack-edge.com/E09V59WQY1E-U08HYM19NJE-bdc022083fb2-512" />
@@ -32,10 +32,11 @@
         </div>
     </header>
     <div class="homepage">
+        <!-- <div class="snow"></div> -->
         <div class="homepage-cards-container">
             <div class="profile-card homepage-cards">
                 <div>
-                    <h2 class="name-title">Hello, I'm <span class="name-colorgradient">Nathan</span></h2>
+                    <h2 class="card-title">Hello, I'm <span class="name-colorgradient">Nathan</span></h2>
                     <ul class="about-me-list">
                         <li><img class="html5-icon" src="assets/icons/icons8-html-48.png" />I am a web developer!</li>
                         <li>🛠️ I am also a hobbyest engineer</li>
@@ -45,15 +46,16 @@
                 <img class="pfp" src="https://ca.slack-edge.com/E09V59WQY1E-U08HYM19NJE-bdc022083fb2-512" />
             </div>
 
-            <div class="profile-card homepage-cards">
-                <h2>Hii</h2>
+            <div class="recent-project-card homepage-cards">
+                <h2 class="card-title">Recent Project</h2>
             </div>
-
 
         </div>
     </div>
-    <footer>
-        hi
+    <footer id="footer">
+        <a class="github-label" href="https://github.com/zibuyin/PersonalWebsite">
+            <p>Github <i class="fa-brands fa-github"></i></p>
+        </a>
     </footer>
 </body>
 
