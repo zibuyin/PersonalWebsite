@@ -63,7 +63,7 @@ header {
 
 .navbar {
     display: flex;
-
+    align-items: center;
     flex-direction: row;
     gap: 20px;
     margin-right: 2vw;
@@ -71,15 +71,17 @@ header {
 
 .navbar>a {
     color: var(--secondary);
-    transition: color 0.20s;
+    transition: color 0.30s;
     font-weight: bold;
     font-size: 20px;
     cursor: pointer;
+    text-decoration: none;
 }
 
-.navbar>a:hover {
-    color: var(--primary);
+.navbar>*:hover {
+    color: var(--primary) !important;
 }
+
 
 .PHONE-navbar-toggle {
     position: fixed;
@@ -93,6 +95,9 @@ header {
 }
 
 /* ========== MAIN ========== */
+.snow {
+    height: 100vh;
+}
 
 .homepage {
     margin: 2vw;
@@ -118,6 +123,9 @@ header {
         justify-content: space-between;
     }
 
+    .flavourtown-devlogs-card {
+        max-width: 30vw !important;
+    }
 
 }
 
@@ -177,6 +185,9 @@ header {
     padding: 0;
 }
 
+.card-subtitle {
+    margin-top: 5px;
+}
 
 
 /* ========== Navbar Mobile ========== */
@@ -265,6 +276,7 @@ li {
 .email-text {
     color: var(--secondary);
     transition: color 0.17s;
+    margin-bottom: 0px;
 }
 
 .html5-icon {
@@ -274,4 +286,15 @@ li {
 
 .email-text:hover {
     color: var(--primary);
+}
+
+/* ========== Flavour Town Devlogs Card ========== */
+
+.devlog-area {
+    color: var(--secondary);
+    font-style: italic;
+}
+
+.devlog-timestamp-area {
+    margin-bottom: 0;
 }

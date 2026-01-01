@@ -22,18 +22,21 @@ $grad: ();
 html {
   height: 100%;
   // background: linear-gradient(#123 30%, #667);
-
+  overflow: hidden;
 }
 .snow, .snow:before, .snow:after {
-  position: absolute;
+  position: fixed;
   top: -$w + px;
   left: 0;
-  bottom: 0;
   right: 0;
+  height: calc(100vh + #{$w * 4}px);
   background-image: $grad;
   background-size: $w + px $w + px;
   animation: snow $s linear infinite;
   content: "";
+  pointer-events: none;
+  z-index: 9999;
+  overflow: hidden;
 }
 .snow:after {
   margin-left: -$w/3 + px;
