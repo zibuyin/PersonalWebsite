@@ -14,7 +14,7 @@
 
 @font-face {
     font-family: Quicksand;
-    src: url(fonts/Quicksand/Quicksand-VariableFont_wght.ttf);
+    src: url(/frontend/fonts/Quicksand/Quicksand-VariableFont_wght.ttf);
 }
 
 
@@ -84,7 +84,7 @@ header {
 .PHONE-navbar-toggle {
     position: fixed;
     right: 2vw;
-
+    display: none;
     align-self: center;
     scale: 1.5;
     color: var(--secondary);
@@ -106,7 +106,7 @@ header {
     }
 
     .PHONE-navbar-toggle {
-        display: none;
+        display: none !important;
     }
 
     .homepage-cards {

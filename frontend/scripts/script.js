@@ -19,3 +19,6 @@ function updateFooterPosition() {
 
 updateFooterPosition();
 window.addEventListener("resize", updateFooterPosition);
+
+
+
