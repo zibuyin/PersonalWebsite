@@ -3,6 +3,12 @@
     --text-primary: rgb(255, 255, 255);
     --primary: rgb(244, 94, 255);
     --secondary: rgb(161, 152, 244);
+
+    --card-bg1: rgb(44, 38, 57);
+    /* --card-bg3: TODO */
+    ;
+    /* padding: 0;
+    margin: 0; */
 }
 
 @font-face {
@@ -10,27 +16,120 @@
     src: url(fonts/Quicksand/Quicksand-VariableFont_wght.ttf);
 }
 
+
 html {
+
     font-family: "Quicksand";
     color: var(--text-primary);
     background-color: var(--color-bg);
+    width: 100vw;
 }
 
-.homepage {
-    margin: 15px;
+body {
+    padding: 0;
+    margin: 0;
 }
 
-.homepage-cards-container {
+/* ========== HEADER ========== */
+
+header {
+
+    background-color: var(--card-bg1);
+    width: 100%;
     display: flex;
     flex-direction: row;
-    gap: 10px;
+    align-items: center;
 }
+
+h1 {
+    margin: 0px;
+    padding: 7px;
+    padding-left: 25px;
+    font-size: 25px;
+    color: var(--secondary);
+    font-weight: 600;
+
+
+}
+
+.navbar {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    /* position: absolute;
+    top: 5;
+    right: 5; */
+}
+
+.navbar>a {
+    color: var(--secondary);
+    font-weight: bold;
+    font-size: 20px;
+}
+
+/* ========== MAIN ========== */
+
+.homepage {
+    margin: 2vw;
+    margin-top: 30px;
+}
+
+@media only screen and (orientation: landscape) {
+    .homepage-cards-container {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+
+    }
+
+    .PHONE-pfp {
+        display: none;
+    }
+
+    .homepage-cards {
+        width: fit-content;
+    }
+
+
+}
+
+@media only screen and (orientation: portrait) {
+    .homepage-cards-container {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+    }
+
+    .pfp {
+        display: none;
+    }
+
+    .PHONE-pfp {
+        display: block;
+        width: 32px;
+        margin-left: 10px;
+        border-radius: 5px;
+    }
+
+    .navbar {
+        display: none;
+    }
+
+
+
+}
+
 
 /* General cards CSS */
 .homepage-cards {
-    background-color: rgb(74, 67, 90);
+    background-color: var(--card-bg1);
     padding: 10px;
-    border-radius: 10px;
+    border-radius: 12px;
+    /* width: fit-content; */
+    max-width: 96vw;
+    /* box-shadow: 0 0 5px rgb(106, 101, 152); */
+
 }
 
 /* Specific to profile card */
@@ -38,6 +137,7 @@ html {
     display: flex;
     flex-direction: row;
     gap: 15px;
+    /* flex: 1; */
 }
 
 /* The name part */
@@ -56,10 +156,15 @@ html {
 }
 
 .pfp {
-    width: 128px;
+    height: auto;
+    max-width: 128px;
+    /* resize: both; */
+    /* height: 128px; */
+    margin-right: 15px;
     /* Circular pfp */
     /* border-radius: 64px; */
-    border-radius: 10px;
+    border-radius: 20px;
+    align-self: center;
 }
 
 .about-me-list {
@@ -68,9 +173,22 @@ html {
 }
 
 li {
-    padding-bottom: 5px;
+    padding: 0px;
+    padding-top: 5px;
+    font-size: 20px;
+    overflow-wrap: normal;
 }
 
 .email-text {
-    font-style: ;
+    color: var(--secondary);
+    transition: color 0.17s;
+}
+
+.html5-icon {
+    height: 20px;
+    /* align-self: baseline; */
+}
+
+.email-text:hover {
+    color: var(--primary);
 }
