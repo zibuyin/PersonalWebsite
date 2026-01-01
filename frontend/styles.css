@@ -71,11 +71,26 @@ header {
 
 .navbar>a {
     color: var(--secondary);
+    transition: color 0.20s;
     font-weight: bold;
     font-size: 20px;
+    cursor: pointer;
 }
 
+.navbar>a:hover {
+    color: var(--primary);
+}
 
+.PHONE-navbar-toggle {
+    position: fixed;
+    right: 2vw;
+
+    align-self: center;
+    scale: 1.5;
+    color: var(--secondary);
+    transition: color 0.2s;
+    cursor: pointer;
+}
 
 /* ========== MAIN ========== */
 
@@ -87,6 +102,10 @@ header {
 @media only screen and (orientation: landscape) {
 
     .PHONE-pfp {
+        display: none;
+    }
+
+    .PHONE-navbar-toggle {
         display: none;
     }
 
@@ -113,6 +132,10 @@ header {
         width: 32px;
         margin-left: 10px;
         border-radius: 5px;
+    }
+
+    .PHONE-navbar-toggle {
+        display: block;
     }
 
     .navbar {
@@ -146,19 +169,65 @@ header {
 
 }
 
-/* Specific to profile card */
-.profile-card {
-    display: flex;
-    flex-direction: row;
-    gap: 15px;
-    /* flex: 1; */
-}
 
 /* The name part */
 .card-title {
     font-size: 22px;
     margin: 0;
     padding: 0;
+}
+
+
+
+/* ========== Navbar Mobile ========== */
+
+
+
+/* ========== FOOTER ========== */
+
+footer {
+    /* display: block; */
+    /* position: fixed; */
+    bottom: 0;
+    /* padding: 10px; */
+    padding-left: 2vw;
+    padding-right: 2vw;
+    padding-bottom: 2px;
+    border-top: solid var(--card-bg1);
+    /* background-color: red; */
+    width: 96%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* padding-left: 2vw; */
+}
+
+.github-label {
+    padding: 0px;
+    font-size: 20px;
+    color: var(--secondary);
+    text-decoration: none;
+}
+
+/* ========== Stats Card ========== */
+
+.stats-card {
+    border: 0px;
+    border-color: transparent;
+    width: auto;
+}
+
+
+
+
+/* ========== Profile Card ========== */
+/* Specific to profile card */
+.profile-card {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    /* flex: 1; */
 }
 
 /* Highliting name :3 */
@@ -205,34 +274,4 @@ li {
 
 .email-text:hover {
     color: var(--primary);
-}
-
-
-/* ========== FOOTER ========== */
-
-footer {
-    /* display: block; */
-    /* position: fixed; */
-    bottom: 0;
-    /* padding: 10px; */
-    padding-left: 2vw;
-    padding-right: 2vw;
-    padding-bottom: 2px;
-    border-top: solid var(--card-bg1);
-    /* background-color: red; */
-    width: 100%;
-}
-
-.github-label {
-    padding: 0px;
-    font-size: 20px;
-    color: var(--secondary);
-    text-decoration: none;
-}
-
-/* ========== Stats Card ========== */
-
-.stats-card {
-    border: 0px;
-    width: auto;
 }

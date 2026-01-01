@@ -1,0 +1,4 @@
+name = "PersonalWebsite-Backend-Worker"
+main = "src/index.js"        
+type= "javascript"
+compatibility_date = "2026-01-01"
