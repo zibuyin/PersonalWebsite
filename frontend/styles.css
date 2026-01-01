@@ -43,10 +43,14 @@ header {
     align-items: center;
     position: fixed;
     top: 0;
-    /* height: 35px; */
+
+
+
 }
 
 .header-title {
+    /* position: fixed; */
+    /* left: 2vw; */
     margin: 0px;
     padding: 7px;
     padding-left: 2vw;
@@ -59,11 +63,10 @@ header {
 
 .navbar {
     display: flex;
+
     flex-direction: row;
     gap: 20px;
-    /* position: absolute;
-    top: 5;
-    right: 5; */
+    margin-right: 2vw;
 }
 
 .navbar>a {
@@ -82,12 +85,6 @@ header {
 }
 
 @media only screen and (orientation: landscape) {
-    .homepage-cards-container {
-        display: flex;
-        flex-direction: row;
-        gap: 10px;
-
-    }
 
     .PHONE-pfp {
         display: none;
@@ -97,16 +94,15 @@ header {
         width: fit-content;
     }
 
+    /* Align the navbar to the right when on landscape viewport */
+    header {
+        justify-content: space-between;
+    }
+
 
 }
 
 @media only screen and (orientation: portrait) {
-    .homepage-cards-container {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-
-    }
 
     .pfp {
         display: none;
@@ -123,12 +119,19 @@ header {
         display: none;
     }
 
+    .homepage-cards {
+        width: 96vw;
+    }
 
 
 }
 
-.homepage {
+.homepage-cards-container {
     margin-top: 60px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 /* General cards CSS */
@@ -225,4 +228,11 @@ footer {
     font-size: 20px;
     color: var(--secondary);
     text-decoration: none;
+}
+
+/* ========== Stats Card ========== */
+
+.stats-card {
+    border: 0px;
+    width: auto;
 }
