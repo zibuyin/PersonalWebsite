@@ -1,12 +1,15 @@
 .projects-page {
     padding: 2vw;
-    margin-top: 60px;
+    margin-top: 30px;
     overflow-y: scroll;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
+.page-title {
+    margin-bottom: 40px;
+}
 
 .project-cards-container {
 
