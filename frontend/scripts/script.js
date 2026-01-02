@@ -165,8 +165,9 @@ const graphWrapper = document.getElementsByClassName("hackatime-graph-wrapper")[
 const graphLegendWrapper = document.getElementsByClassName("hackatime-graph-legend-wrapper")[0]
 let NUMBER_OF_MAX_LANG = 7
 let total_others_percentage = -1.0
+let total_others_time = -1.0
 
-function generateGraphLegend(currentColor, language){
+function generateGraphLegend(currentColor, language, time){
     // The small wrapper around each legend
     const legendComponentWrapper = document.createElement("div")
     legendComponentWrapper.className = "hackatime-graph-legend-component-wrapper"
@@ -179,7 +180,7 @@ function generateGraphLegend(currentColor, language){
     // The langauge label
     const graphLegendText = document.createElement("p")
     graphLegendText.className = "hackatime-graph-legend-text"
-    graphLegendText.innerText = language
+    graphLegendText.innerText = `${language}`
 
     legendComponentWrapper.appendChild(graphLegendIcon)
     legendComponentWrapper.appendChild(graphLegendText)
@@ -212,13 +213,20 @@ async function updateHackatimeCard(){
             const newGraphComponent = document.createElement("div")
             newGraphComponent.className = "hackatime-graph-component"
             newGraphComponent.style.flex = jsonlanguages[i].percent 
+
             let currentColor = GRAPH_COLORS[i]
             newGraphComponent.style.backgroundColor = currentColor
             console.log(jsonlanguages[i])
+            
+
+            // Round the first sector
+            if (i == 0){
+                newGraphComponent.style.borderRadius = "8px 0px 0px 8px"
+            }
             graphWrapper.appendChild(newGraphComponent)
 
             // Generate the legend for each language
-            generateGraphLegend(currentColor, jsonlanguages[i].name)
+            generateGraphLegend(currentColor, jsonlanguages[i].name, jsonlanguages[i].text)
         }
 
     }
@@ -235,10 +243,26 @@ async function updateHackatimeCard(){
     newGraphComponent.style.flex = total_others_percentage
     newGraphComponent.style.backgroundColor = OTHERS_COLOR
     generateGraphLegend(OTHERS_COLOR, "Other")
+
+    // Round the last sector
+    newGraphComponent.style.borderRadius = "0px 8px 8px 0px"
     graphWrapper.appendChild(newGraphComponent)
 }
 
 updateHackatimeCard()
 
 
+// Toggle phone navbar using button
 
+const toggleBtn = document.getElementsByClassName("PHONE-navbar-toggle")[0]
+const PHONENavbar = document.getElementsByClassName("PHONE-navbar-wrapper")[0]
+
+function togglePhoneNavbar(){
+    const styles = window.getComputedStyle(PHONENavbar)
+    if (styles.display != "none"){
+        PHONENavbar.style.display = "none"
+    }
+    else {
+        PHONENavbar.style.display = "block"
+    }
+}

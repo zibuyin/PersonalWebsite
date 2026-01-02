@@ -5,7 +5,7 @@
     --secondary: rgb(161, 152, 244);
 
     --card-bg1: rgb(44, 38, 57);
-    --header-bg: rgb(26, 23, 33, 0.5);
+    --header-bg: rgba(26, 23, 33, 0.905);
     /* --card-bg3: TODO */
     ;
     /* padding: 0;
@@ -41,8 +41,11 @@ header {
     display: flex;
     flex-direction: row;
     align-items: center;
+
     position: fixed;
     top: 0;
+    /* justify-content: space-evenly; */
+    z-index: 9999;
 
 
 
@@ -67,6 +70,8 @@ header {
     flex-direction: row;
     gap: 20px;
     margin-right: 2vw;
+
+    right: 2vw;
 }
 
 .navbar>a {
@@ -84,8 +89,10 @@ header {
 
 
 .PHONE-navbar-toggle {
-    position: fixed;
+    position: absolute;
     right: 2vw;
+    top: 50%;
+    transform: translateY(-50%);
     display: none;
     align-self: center;
     scale: 1.5;
@@ -96,6 +103,50 @@ header {
 
 ::-webkit-scrollbar {
     width: 2px;
+}
+
+/* Phone Navbar */
+.PHONE-navbar {
+    width: 100vw;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    position: fixed;
+    z-index: 255;
+    background-color: var(--header-bg);
+    margin-top: 45px;
+    justify-content: center;
+    /* gap: 15px; */
+    flex-direction: column;
+
+    box-shadow: 0 0 10px var(--color-bg);
+}
+
+.PHONE-navbar>a {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 25px;
+
+
+    width: 100vw;
+    text-align: center;
+    padding: 8px;
+}
+
+.PHONE-navbar>a:hover {
+    background-color: var(--card-bg1);
+}
+
+.PHONE-blur-layer {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(26, 23, 33, 0.886);
+    /* backdrop-filter: blur(10px); */
+    position: fixed;
+    overflow-y: hidden;
+    overscroll-behavior-block: contain !important;
+
+    z-index: 2;
 }
 
 /* ========== MAIN ========== */
@@ -117,6 +168,7 @@ header {
 
     .PHONE-navbar-toggle {
         display: none !important;
+        position: absolute !important;
     }
 
     .homepage-cards {
@@ -143,12 +195,14 @@ header {
     .PHONE-pfp {
         display: block;
         width: 32px;
+        height: 32px;
         margin-left: 10px;
         border-radius: 5px;
     }
 
     .PHONE-navbar-toggle {
         display: block;
+        position: absolute;
     }
 
     .navbar {
@@ -156,7 +210,7 @@ header {
     }
 
     .homepage-cards {
-        width: 96vw;
+        width: 96vw !important;
     }
 
 
@@ -251,9 +305,24 @@ footer {
 }
 
 .hackatime-graph-component {
-    width: 100px;
+    /* width: 100px; */
     height: 10px;
     background-color: red;
+    text-align: center;
+    justify-content: center;
+    font-size: 15px;
+    color: transparent;
+    /* padding-bottom: 3px; */
+
+    /* padding-top: 2px; */
+}
+
+/* .hackatime-graph-wrapper:first-of-type {
+    border-radius: 7.5px;
+} */
+
+.hackatime-graph-component:hover {
+    color: var(--text-primary);
 }
 
 .hackatime-graph-legend-wrapper {
@@ -264,8 +333,9 @@ footer {
     /* justify-content: space-evenly; */
 }
 
-.hackatime-graph-legend-icon {
+.hackatime-graph-legend-icon::before {
     scale: 0.9;
+    z-index: 0;
 }
 
 .hackatime-graph-legend-component-wrapper {
