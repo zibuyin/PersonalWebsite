@@ -94,6 +94,10 @@ header {
     cursor: pointer;
 }
 
+::-webkit-scrollbar {
+    width: 2px;
+}
+
 /* ========== MAIN ========== */
 .snow {
     height: 100vh;
@@ -102,6 +106,7 @@ header {
 .homepage {
     margin: 2vw;
     margin-top: 30px;
+    overflow-y: scroll;
 }
 
 @media only screen and (orientation: landscape) {

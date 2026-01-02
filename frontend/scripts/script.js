@@ -89,7 +89,7 @@ async function getFlavourTownDevlogs(){
 
 }
 
-async function changeDevlogArea(){
+async function updateDevlogArea(){
     const jsonContent = await getFlavourTownDevlogs()
     const devlogBody = jsonContent.devlogs[0].body   
     devlogArea.innerHTML = `"${devlogBody} "`
@@ -99,8 +99,33 @@ async function changeDevlogArea(){
 
     devlogTimestampArea.innerHTML = elapsedTime
 }
-changeDevlogArea()
+updateDevlogArea()
 
 
 
+// Fetch from hackatime api https://backend.natdrone101.workers.dev/api/v1/hackatime
+async function getHackatimeJSON(){
+    const url = 'https://backend.natdrone101.workers.dev/api/v1/hackatime/'
+    try{
+        const response = await fetch (url)
+        
+        if (!response.ok){
+            return "Failed to fetch devlogs..."
+        }
+        const result = await response.json()
+        return result
+        
+    }
+    catch(error){
+        return "Failed to fetch devlogs... " + error.message
+    }
+
+}
+
+async function updateHackatimeCard(){
+    const jsonContentHackatime = await getHackatimeJSON()
+    console.log(jsonContentHackatime)
+}
+
+updateHackatimeCard()
 
