@@ -257,12 +257,22 @@ updateHackatimeCard()
 const toggleBtn = document.getElementsByClassName("PHONE-navbar-toggle")[0]
 const PHONENavbar = document.getElementsByClassName("PHONE-navbar-wrapper")[0]
 
+// function togglePhoneNavbar(){
+//     const styles = window.getComputedStyle(PHONENavbar)
+//     if (styles.display != "none"){
+//         PHONENavbar.style.display = "none"
+//     }
+//     else {
+//         PHONENavbar.style.display = "block"
+//     }
+// }
+
 function togglePhoneNavbar(){
-    const styles = window.getComputedStyle(PHONENavbar)
-    if (styles.display != "none"){
-        PHONENavbar.style.display = "none"
+    console.log(PHONENavbar.className)
+    if (PHONENavbar.className.includes("open")){
+        PHONENavbar.classList.remove("open")
     }
     else {
-        PHONENavbar.style.display = "block"
+        PHONENavbar.classList.add("open")
     }
 }

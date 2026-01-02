@@ -99,6 +99,7 @@ header {
     color: var(--secondary);
     transition: color 0.2s;
     cursor: pointer;
+    margin-right: 3px;
 }
 
 ::-webkit-scrollbar {
@@ -140,6 +141,7 @@ header {
 .PHONE-blur-layer {
     width: 100vw;
     height: 100vh;
+    top: 0;
     background-color: rgba(26, 23, 33, 0.886);
     /* backdrop-filter: blur(10px); */
     position: fixed;
@@ -147,6 +149,25 @@ header {
     overscroll-behavior-block: contain !important;
 
     z-index: 2;
+}
+
+.PHONE-navbar-wrapper {
+    position: fixed;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10);
+    transition: opacity 0.25s, transform 0.25s, visibility 0.25s linear;
+}
+
+.PHONE-navbar-wrapper.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition: opacity 0.25s, transform 0.25s, visibility 0s;
+}
+
+.PHONE-snowflake {
+    scale: 1.1;
 }
 
 /* ========== MAIN ========== */
@@ -182,6 +203,10 @@ header {
 
     .flavourtown-devlogs-card {
         max-width: 30vw !important;
+    }
+
+    .PHONE-header-btns-wrapper {
+        display: none;
     }
 
 }
