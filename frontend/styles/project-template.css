@@ -117,10 +117,14 @@ md-block>hr {
 }
 
 md-block>p>img {
-    max-width: 83vw;
+    width: 90% !important;
+    height: auto !important;
     display: block;
-    margin: 10px;
+    margin: 20px;
     margin-left: auto;
     margin-right: auto;
     /* display: none; */
+
+    border-radius: 15px;
+    box-shadow: 0 0 2px black;
 }
