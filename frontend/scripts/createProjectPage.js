@@ -88,6 +88,7 @@ async function getMetadataJSON(){
 
     // Always serve the content over the same protocol as the website itself, preventing Mixed content error when website served over https, but resource served over http
     const url = `${window.location.protocol}//${window.location.host}/frontend/pages/markdown/metadata.json`
+    console.log(url)
     try{
         const response = await fetch (url)
         
