@@ -1,4 +1,4 @@
-# My Personal Website
+# My Personal Website ![Hackatime](https://hackatime-badge.hackclub.com/U08HYM19NJE/PersonalWebsite)
 
 ## TODO
 

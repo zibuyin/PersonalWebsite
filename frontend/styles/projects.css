@@ -33,7 +33,7 @@
     border-radius: 12px;
     /* min-width: fit-content; */
     width: 30vw;
-    height: 190px;
+    height: fit-content;
     display: flex;
     justify-content: space-between;
     flex-grow: 1;

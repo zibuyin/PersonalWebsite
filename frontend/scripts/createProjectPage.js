@@ -57,6 +57,8 @@ const WEBPAGE_TEMPLATE= (title, date, imgsrc, mdsrc) => {
     </html>
 `
 }
+
+const blobUrls = []
 function createProjectPage(title, subtitle, date, imgsrc, mdsrc){
     const mdUrl = mdsrc.startsWith('http') ? mdsrc : `${window.location.origin}/${mdsrc.replace(/^\//,'')}`
     const html = WEBPAGE_TEMPLATE(title, date, imgsrc, mdUrl)
@@ -73,12 +75,48 @@ function createProjectPage(title, subtitle, date, imgsrc, mdsrc){
 
 
 
-
-
-    console.log(blobUrl)
+    blobUrls.push(blobUrl)
+    console.log(blobUrls)
 //     const fileNameWithoutExt = mdsrc.split(/[/\\]/).pop().split('.').slice(0, -1).join('.');
 //     console.log(WEBPAGE_TEMPLATE(title,date,imgsrc))
 //     const file = new File([WEBPAGE_TEMPLATE(title, date, imgsrc)], `/frontend/pages/projects/${fileNameWithoutExt}.html`, { type: "text/html" })
 // }
 }
-createProjectPage("test", "subtitle lol", "January 1st, 2026", "https://flavortown.hackclub.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MzAyOTAsInB1ciI6ImJsb2JfaWQifX0=--72cfb22800b256c50d70848b6f3c35f92893fabd/eyJfcmFpbHMiOnsiZGF0YSI6eyJmb3JtYXQiOiJ3ZWJwIiwicmVzaXplX3RvX2xpbWl0IjpbMTYwMCw5MDBdLCJzYXZlciI6eyJzdHJpcCI6dHJ1ZSwicXVhbGl0eSI6NzV9fSwicHVyIjoidmFyaWF0aW9uIn19--3bc8a2c9d65e3b087c0c0b37dcfb642bb247bc73/Screenshot%202026-01-01%20at%2012.22.06.png", "frontend/pages/markdown/personalWebsite.md")
+
+// Gets the JSON storing the filenames of all the md
+async function getMetadataJSON(){
+    const url = `http://${window.location.host}/frontend/pages/markdown/metadata.json`
+    try{
+        const response = await fetch (url)
+        
+        if (!response.ok){
+            return "Failed to fetch projects metadata..."
+        }
+        const result = await response.json()
+        return result
+        
+    }
+    catch(error){
+        return "Failed to fetch metadata... " + error.message
+    }
+
+}
+
+// Enumerate through all of them
+async function goThruAllMd(){
+    const metadata = await getMetadataJSON()
+    // alert(metadata.filename[1])
+    for (let i = 0; i < metadata.pages.length; i++){
+        const currentPage = metadata.pages[i]
+        createProjectPage(currentPage.title, currentPage.subtitle, currentPage.date, currentPage.imgsrc, `/frontend/pages/markdown/${currentPage.fileName}.md`)
+    }
+}
+
+goThruAllMd()
+// Garbage cleaning, removes the blob urls when page unloads, BROKEN ON Safari [TODO]
+window.addEventListener("beforeunload", () => {
+    alert("garbage cleaning")
+    for (let i = 0; i < blobUrls.length; i++){
+        URL.revokeObjectURL(blobUrls[i])
+    }
+})
