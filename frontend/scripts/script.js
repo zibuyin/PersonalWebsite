@@ -13,17 +13,17 @@ function isPageOverflowing() {
 function updateFooterPosition() {
     if (isPageOverflowing()) {
         footer.style.position = "relative"
-        console.log("overflowed")
+        // console.log("overflowed")
     }
     else{
         footer.style.position = "fixed"
-        console.log("not overflowing")
+        // console.log("not overflowing")
     }
 }
 
 updateFooterPosition();
 window.addEventListener("resize", updateFooterPosition);
-// window.addEventListener("scroll", updateFooterPosition);
+window.addEventListener("load", updateFooterPosition);
 setInterval(updateFooterPosition)
 // Snow toggle
 const snow = document.getElementsByClassName("snow")[0]
