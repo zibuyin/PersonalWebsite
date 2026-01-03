@@ -20,7 +20,7 @@
     background-color: var(--card-bg1);
     display: flex;
     padding: 23px;
-
+    flex-direction: column;
     margin: 0 auto;
     margin-top: 90px;
     margin-bottom: 40px;
@@ -43,21 +43,61 @@
     }
 }
 
+.back-btn-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
 
-.back-btn {
-    /* margin-left: 70px; */
+    /* background-color: var(--color-bg); */
+    width: fit-content;
+    /* padding: 2px !important; */
+    cursor: pointer;
+
+    text-decoration: none !important;
+
+}
+
+.back-btn-wrapper>* {
     color: var(--secondary);
+    transition: color 0.25s;
+}
+
+.back-btn-wrapper:hover>* {
+    color: var(--primary) !important;
+}
+
+.back-btn-icon {
+    /* margin-left: 70px; */
+
     scale: 1.5;
+    /* padding: 0px; */
+}
+
+.back-btn-para {
+    font-size: 21px;
+    /* padding: 0px; */
+    margin: 0px;
 }
 
 
 /* Markdown CSS */
-md-block>h1 {
+h1 {
     font-size: 32px;
     color: var(--primary);
     word-wrap: normal;
-
     max-width: 83vw;
+}
+
+.page-title {
+    margin-bottom: 8px;
+}
+
+.date {
+    margin: 0px;
+    font-weight: normal;
+    font-size: 30;
+    color: var(--secondary);
 }
 
 md-block>h2 {
@@ -80,8 +120,8 @@ md-block>hr {
 md-block>p>img {
     max-width: 83vw;
     display: block;
+    margin: 10px;
     margin-left: auto;
     margin-right: auto;
-
     /* display: none; */
 }
