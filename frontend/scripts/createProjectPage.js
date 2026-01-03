@@ -120,3 +120,5 @@ window.addEventListener("beforeunload", () => {
         URL.revokeObjectURL(blobUrls[i])
     }
 })
+
+console.log("DEBUG")
