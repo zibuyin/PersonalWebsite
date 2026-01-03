@@ -23,8 +23,8 @@ function updateFooterPosition() {
 
 updateFooterPosition();
 window.addEventListener("resize", updateFooterPosition);
-
-
+// window.addEventListener("scroll", updateFooterPosition);
+setInterval(updateFooterPosition)
 // Snow toggle
 const snow = document.getElementsByClassName("snow")[0]
 const toggleButton = document.getElementsByClassName("snow-toggle")[0]

@@ -290,7 +290,8 @@ footer {
     padding-right: 2vw;
     padding-bottom: 2px;
     border-top: solid var(--card-bg1);
-    /* background-color: red; */
+    background-color: var(--color-bg);
+
     width: 96%;
 
     display: flex;
