@@ -12,6 +12,8 @@
 -   [ ] Do about page
 -   [ ] Do contacs page
 -   [ ] Slack intergration - leave a message?
+-   [ ] Add a 404 page
+-   [ ] Fix blob:https:// pages breaking when reloaded
 
 ## Dependencies & Thanks
 
