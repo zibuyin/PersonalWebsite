@@ -7,7 +7,7 @@ if (localStorage.getItem("snowTheme") === null){
 const footer = document.getElementById("footer")
 
 function isPageOverflowing() {
-    return document.documentElement.scrollHeight > window.innerHeight;
+    return document.documentElement.scrollHeight > window.innerHeight - 20;
 }
 
 function updateFooterPosition() {
