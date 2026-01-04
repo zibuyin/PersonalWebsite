@@ -85,7 +85,10 @@ async function hashString(inputString) {
 
 async function handleUniqueUser(request, env){
 	const ip = request.headers.get("CF-Connecting-IP")
-	const hash = (await hashString(ip)).toString();
+	// const hash = (await hashString(ip)).toString();
+
+	// REMOVE IN PRODUCTION [TODO]
+	const hash = ip
 	try {
 		await env.DB
 			.prepare(
