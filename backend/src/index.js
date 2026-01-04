@@ -83,7 +83,23 @@ async function hashString(inputString) {
     return hashHex;
 }
 
-
+async function handleUniqueUser(request, env){
+	const ip = request.headers.get("CF-Connecting-IP")
+	const hash = (await hashString(ip)).toString();
+	try {
+		await env.DB
+		.prepare(
+			"INSERT OR IGNORE INTO tbl_visitors (ip_hash) VALUES (?);"
+		)
+		.bind(hash)
+		.run()
+		return {done: "true"}
+	}
+	catch (error){
+		return {error: error.message};
+	}
+				
+}
 export default {
 	async fetch(request, env, ctx) {
 		const url = new URL(request.url)
@@ -103,31 +119,12 @@ export default {
 		// Handle PUT requests
 		// Hash the IP addr and store it in SQL to count unique visitors
 		if (request.method === "PUT" && url.pathname.includes("posts/uniqueVisitor")){
-			const ip = request.headers.get("CF-Connecting-IP")
-			const hash = (await hashString(ip)).toString();
-			try {
-				await env.DB
-				.prepare(
-					"INSERT OR IGNORE INTO tbl_visitors (ip_hash) VALUES (?);"
-				)
-				.bind(hash)
-				.run()
-				return new Response(JSON.stringify({success: true}), { 
-				headers: {
-					...corsHeaders,
-					'Content-Type': 'application/json'
-				}
-			});
-			}
-			catch (error){
-				return new Response(JSON.stringify({error: error.message}), { 
-				headers: {
-					...corsHeaders,
-					'Content-Type': 'application/json'
-				}
-			});
-			}
-			
+			const result = await handleUniqueUser(request, env);
+			return Response.json(result, {
+			headers: {
+			...corsHeaders,
+			'Content-Type': 'application/json'
+		} });
 		}
 		if (url.pathname.includes("/api/v1/hackatime")){
 			const requestURL = url.pathname
