@@ -14,6 +14,7 @@
 -   [ ] Slack intergration - leave a message?
 -   [ ] Add a 404 page
 -   [ ] Fix blob:https:// pages breaking when reloaded
+-   [ ] Add SEO tags
 
 ## Dependencies & Thanks
 
