@@ -6,6 +6,12 @@
 -   [ ] More interesting displays for Projects page - e.g Highlighting, larger cards for more important projects
 -   [x] Fix displaying issue of MD articles on phone
 -   [ ] Add GDPR consent popup for EEA / EU members
+-   [ ] Track which project is the most popular - show view count
+-   [ ] Adjust projects card layout
+-   [ ] Fill in the projects with contents
+-   [ ] Do about page
+-   [ ] Do contacs page
+-   [ ] Slack intergration - leave a message?
 
 ## Dependencies & Thanks
 
