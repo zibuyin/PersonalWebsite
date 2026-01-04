@@ -88,12 +88,18 @@ async function handleUniqueUser(request, env){
 	const hash = (await hashString(ip)).toString();
 	try {
 		await env.DB
-		.prepare(
-			"INSERT OR IGNORE INTO tbl_visitors (ip_hash) VALUES (?);"
-		)
-		.bind(hash)
-		.run()
-		return {done: "true"}
+			.prepare(
+				"INSERT OR IGNORE INTO tbl_visitors (ip_hash) VALUES (?);"
+			)
+			.bind(hash)
+			.run()
+
+		const { results } = await env.DB
+			.prepare(
+				"SELECT COUNT(DISTINCT ip_hash) AS unique_visitors_count FROM tbl_visitors"
+			)
+			.run()
+		return {uniqueVisitors: results[0].unique_visitors_count}
 	}
 	catch (error){
 		return {error: error.message};
