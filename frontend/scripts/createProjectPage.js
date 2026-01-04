@@ -6,14 +6,14 @@ const WEBPAGE_TEMPLATE= (title, date, imgsrc, mdsrc) => {
     <head>
         <!-- Google tag (gtag.js) -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNXFV9PZRF"></script>
-            <script>
-                window.dataLayer = window.dataLayer || [];
-                function gtag() { dataLayer.push(arguments); }
-                gtag('js', new Date());
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
 
-                gtag('config', 'G-GNXFV9PZRF');
-            </script>
+            gtag('config', 'G-GNXFV9PZRF');
         </script>
+    
         <base href="${base}">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
