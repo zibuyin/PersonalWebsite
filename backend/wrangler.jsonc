@@ -9,7 +9,13 @@
 	"compatibility_date": "2026-01-01",
 	"observability": {
 		"enabled": true
-	}
+	},
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_id": "27bdb95a-3ec9-4feb-9306-294226f93fb6"
+		}
+	]
 	/**
 	 * Smart Placement
 	 * https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement

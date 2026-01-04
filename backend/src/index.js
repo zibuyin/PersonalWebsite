@@ -8,6 +8,7 @@
  * Learn more at https://developers.cloudflare.com/workers/
  */
 
+
 // CONSTANTS
 const HACKATIME_URL = "https://hackatime.hackclub.com/api/v1"
 const FLAVOURTOWN_URL = "https://flavortown.hackclub.com/api/v1/projects/3584/devlogs"
@@ -71,7 +72,16 @@ async function getFlavourTownResponse(env){
 
    
 
+async function hashString(inputString) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(inputString); 
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data); 
 
+    const hashArray = Array.from(new Uint8Array(hashBuffer)); 
+    const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join(''); 
+
+    return hashHex;
+}
 
 
 export default {
@@ -81,7 +91,7 @@ export default {
 		// CORS Headers
 		const corsHeaders = {
 			'Access-Control-Allow-Origin': '*',
-			'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+			'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT',
 			'Access-Control-Allow-Headers': 'Content-Type',
 		}
 
@@ -90,6 +100,35 @@ export default {
 			return new Response(null, { headers: corsHeaders })
 		}
 
+		// Handle PUT requests
+		// Hash the IP addr and store it in SQL to count unique visitors
+		if (request.method === "PUT" && url.pathname.includes("posts/uniqueVisitor")){
+			const ip = request.headers.get("CF-Connecting-IP")
+			const hash = (await hashString(ip)).toString();
+			try {
+				await env.DB
+				.prepare(
+					"INSERT OR IGNORE INTO tbl_visitors (ip_hash) VALUES (?);"
+				)
+				.bind(hash)
+				.run()
+				return new Response(JSON.stringify({success: true}), { 
+				headers: {
+					...corsHeaders,
+					'Content-Type': 'application/json'
+				}
+			});
+			}
+			catch (error){
+				return new Response(JSON.stringify({error: error.message}), { 
+				headers: {
+					...corsHeaders,
+					'Content-Type': 'application/json'
+				}
+			});
+			}
+			
+		}
 		if (url.pathname.includes("/api/v1/hackatime")){
 			const requestURL = url.pathname
 			const parsedURL = requestURL.slice(17)

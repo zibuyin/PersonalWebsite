@@ -276,3 +276,30 @@ function togglePhoneNavbar(){
         PHONENavbar.classList.add("open")
     }
 }
+
+
+// Handle unique visitors
+async function putUniqueVisitors(){
+    if (localStorage.getItem("isUniqueVisitor") === "null" || true) {
+        try {
+            const response = await fetch("https://backend.natdrone101.workers.dev/posts/uniqueVisitor", {
+                method: "PUT",
+
+            })
+            if (!response.ok){
+                console.log(`UniqueVisitors error: ${response.status}`)
+            }
+            
+            const result = await response.json()
+            console.log(`Sent PUT Request:`, result)
+            if (result.error) {
+                console.error("DB Error:", result.error)
+            }
+            localStorage.setItem("isUniqueVisitor", "false")
+        }
+        catch(error){
+            console.log(`Failed to send PUT request: ${error.message}`)
+        }
+    }
+}
+window.addEventListener("load", putUniqueVisitors)
