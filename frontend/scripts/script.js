@@ -280,6 +280,9 @@ function togglePhoneNavbar(){
 
 // Handle unique visitors
 async function putUniqueVisitors(){
+    const counterField = document.getElementsByClassName("unique-visitors-counter")[0]
+    let content
+    // OMINITED - [TODO]
     if (localStorage.getItem("isUniqueVisitor") === "null" || true) {
         try {
             const response = await fetch("https://backend.natdrone101.workers.dev/posts/uniqueVisitor", {
@@ -292,6 +295,7 @@ async function putUniqueVisitors(){
             
             const result = await response.json()
             console.log(`Sent PUT Request:`, result)
+            content = result.uniqueVisitors
             if (result.error) {
                 console.error("DB Error:", result.error)
             }
@@ -300,6 +304,9 @@ async function putUniqueVisitors(){
         catch(error){
             console.log(`Failed to send PUT request: ${error.message}`)
         }
+        counterField.innerText = content ?? "--"
     }
+    
+
 }
 window.addEventListener("load", putUniqueVisitors)
