@@ -72,11 +72,12 @@ async function getFlavourTownResponse(env){
 
    
 
-async function hashString(inputString) {
+async function hashString(inputString, salt) {
     const encoder = new TextEncoder();
+	// Inject the Salt... (tasty :3)
+	inputString = salt + inputString
     const data = encoder.encode(inputString); 
     const hashBuffer = await crypto.subtle.digest('SHA-256', data); 
-
     const hashArray = Array.from(new Uint8Array(hashBuffer)); 
     const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join(''); 
 
@@ -85,7 +86,8 @@ async function hashString(inputString) {
 
 async function handleUniqueUser(request, env){
 	const ip = request.headers.get("CF-Connecting-IP") || "127.0.0.1"
-	const hash = (await hashString(ip)).toString();
+	const SALT = env.ENC_SALT
+	const hash = (await hashString(ip, SALT)).toString();
 	// const hash = ip DEBUG ONLY, MUST REMOVE IN PRODUCTION
 	try {
 		await env.DB
