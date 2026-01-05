@@ -5,7 +5,7 @@ class SiteHeader extends HTMLElement {
     <header>
         <div style="display: flex; align-items: center;">
             <h1 class="header-title">Nathan :D</h1>
-            <img class="PHONE-pfp" src="https://ca.slack-edge.com/E09V59WQY1E-U08HYM19NJE-bdc022083fb2-512" />
+            <img class="PHONE-pfp" src="/frontend/assets/PFP@512.png" />
         </div>
 
         <div class="navbar">
