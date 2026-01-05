@@ -2,7 +2,7 @@
 
 ## TODO
 
--   [ ] Fix the request logic - only call from API backend when needed to display.
+-   [x] Fix the request logic - only call from API backend when needed to display.
 -   [ ] More interesting displays for Projects page - e.g Highlighting, larger cards for more important projects
 -   [x] Fix displaying issue of MD articles on phone
 -   [ ] Add GDPR consent popup for EEA / EU members
