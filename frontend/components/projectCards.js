@@ -5,13 +5,14 @@ class ProjectCard extends HTMLElement {
     const imgsrc = this.getAttribute('src') || "Insert Image Source"
     const customClassName = this.getAttribute("className") || "none"
     const blob = this.getAttribute("blob")
+    const views = this.getAttribute("views")
     this.innerHTML = `
             <a href="${blob}">
               <div class="project-card">
                   <div class="project-card-title-wrapper ${customClassName}">
                       <h2 class="project-card-title">${title}</h2>
-                      <p class="project-card-subtitle">${subtitle}
-                      </p>
+                      <p class="project-card-subtitle">${subtitle}</p>
+                      <p>${views} Views</p>
                   </div>
                   <img class="project-card-image"
                       src="${imgsrc}"></img>

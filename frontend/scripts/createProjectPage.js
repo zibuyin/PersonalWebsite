@@ -70,7 +70,7 @@ const WEBPAGE_TEMPLATE= (title, date, imgsrc, mdsrc) => {
 }
 
 const blobUrls = []
-function createProjectPage(title, subtitle, date, imgsrc, mdsrc){
+function createProjectPage(title, subtitle, date, imgsrc, mdsrc, id, views){
     const mdUrl = mdsrc.startsWith('http') ? mdsrc : `${window.location.origin}/${mdsrc.replace(/^\//,'')}`
     const html = WEBPAGE_TEMPLATE(title, date, imgsrc, mdUrl)
     const blob = new Blob([html], {type: "text/html"})
@@ -82,6 +82,9 @@ function createProjectPage(title, subtitle, date, imgsrc, mdsrc){
     projectCard.setAttribute("subtitle", subtitle)
     projectCard.setAttribute("src", imgsrc)
     projectCard.setAttribute("blob", blobUrl)
+    projectCard.setAttribute("id", id)
+    projectCard.setAttribute("views", views)
+    projectCard.addEventListener("click", () => cardClickHandler(id))
     container.appendChild(projectCard)
 
 
@@ -115,15 +118,43 @@ async function getMetadataJSON(){
     }
 
 }
+// TODO
+// async function sendFilenameArray(fileNameArray){
+//     const url = 'https://backend.natdrone101.workers.dev/posts/fileNameArray'
+//     try{
+//         const response = await fetch(url, {
+//             method: "PUT",
+//             headers: {
+//                 "Content-Type": "application/json"
+//             },
+//             body: JSON.stringify({ fileNames: fileNameArray })
+//         })
+//         if (!response.ok) {
+//             console.log(`sendFilenameArray error: ${response.status}`)
+//         }
+//         const result = await response.json()
+//         console.log("Sent filename array:", result)
+//         return result
+//     }
+//     catch(error){
+//         console.log(error.message)
+//     }
+// }
 
 // Enumerate through all of them
 async function goThruAllMd(){
+    const fileNameArray = []
     const metadata = await getMetadataJSON()
     // alert(metadata.filename[1])
     for (let i = 0; i < metadata.pages.length; i++){
         const currentPage = metadata.pages[i]
-        createProjectPage(currentPage.title, currentPage.subtitle, currentPage.date, currentPage.imgsrc, `/frontend/pages/markdown/${currentPage.fileName}.md`)
+        fileNameArray.push(currentPage.fileName)
+        createProjectPage(currentPage.title, currentPage.subtitle, currentPage.date, currentPage.imgsrc, `/frontend/pages/markdown/${currentPage.fileName}.md`, currentPage.fileName)
     }
+    console.log(fileNameArray)
+
+    // TODO
+    // await sendFilenameArray(fileNameArray)
 }
 
 goThruAllMd()

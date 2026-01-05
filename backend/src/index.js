@@ -109,6 +109,13 @@ async function handleUniqueUser(request, env){
 	}
 				
 }
+
+// TODO
+// async function handleFileNameArray(array){
+
+// }
+
+
 export default {
 	async fetch(request, env, ctx) {
 		const url = new URL(request.url)
@@ -127,13 +134,29 @@ export default {
 
 		// Handle PUT requests
 		// Hash the IP addr and store it in SQL to count unique visitors
-		if (request.method === "PUT" && url.pathname.includes("posts/uniqueVisitor")){
-			const result = await handleUniqueUser(request, env);
-			return Response.json(result, {
-			headers: {
-			...corsHeaders,
-			'Content-Type': 'application/json'
-		} });
+		if (request.method === "PUT"){
+			if (url.pathname.includes("posts/uniqueVisitor")){
+				const result = await handleUniqueUser(request, env);
+				return Response.json(result, {
+				headers: {
+				...corsHeaders,
+				'Content-Type': 'application/json'
+			}});
+
+			}
+
+			// TODO
+			// else if(url.pathname.includes("posts/fileNameArray")){
+			// 	const { array } = await request.json()
+			// 	const result = await handleProjectViews()
+			// 	return Response.json(result, {
+			// 		headers: {
+			// 		...corsHeaders,
+			// 		'Content-Type': 'application/json'
+			// 		}
+			// 	})
+			// }
+
 		}
 		if (url.pathname.includes("/api/v1/hackatime")){
 			const requestURL = url.pathname
