@@ -1,0 +1,74 @@
+.homepage {
+    justify-content: center;
+}
+
+.about-page {
+    padding: 2vw;
+    margin-top: 20px;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.page-title {
+    margin-bottom: 20px;
+
+}
+
+.about-me-description-container {
+    /* background-color: red; */
+    height: fit-content;
+    width: 80vw;
+    /* border: dashed var(--secondary) 2px; */
+    /* background-color: var(--card-bg1); */
+    /* padding: 10px; */
+    border-radius: 15px;
+}
+
+hr {
+    width: calc(80vw + 0px);
+    border-color: var(--secondary);
+}
+
+@media only screen and (orientation: landscape) {
+
+    .about-me-description-container {
+        width: 80vw;
+    }
+
+}
+
+@media only screen and (orientation: portrait) {
+    .about-me-description-container {
+        width: 93.5vw;
+    }
+}
+
+
+
+/* Markdown CSS */
+md-block>h1 {
+    margin: 0px;
+    font-size: 27px;
+}
+
+md-block>h2 {
+    margin: 0px;
+    font-size: 24px;
+}
+
+md-block>h3 {
+    margin: 0px;
+    font-size: 20px;
+}
+
+a {
+    color: var(--primary);
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--secondary);
+}

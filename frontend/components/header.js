@@ -12,7 +12,7 @@ class SiteHeader extends HTMLElement {
             <a class="snow-toggle" onClick="snowToggleHandler()"><i class="fa-solid fa-snowflake"></i></a>
             <a href="/index.html">Home</a>
             <a href="/frontend/pages/projects.html">Projects</a>
-            <a>About</a>
+            <a href="/frontend/pages/about.html">About</a>
             <a>Contact</a>
 
         </div>
@@ -26,7 +26,7 @@ class SiteHeader extends HTMLElement {
         <div class="PHONE-navbar">
             <a href="/index.html">Home</a>
             <a href="/frontend/pages/projects.html">Projects</a>
-            <a>About</a>
+            <a href="/frontend/pages/about.html">About</a>
             <a>Contact</a>
 
         </div>
