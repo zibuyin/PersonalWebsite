@@ -1,6 +1,6 @@
 class SiteHeader extends HTMLElement {
   connectedCallback() {
-    this.innerHTML = `
+    this.innerHTML = /* html */`
     <div class="snow"></div>
     <header>
         <div style="display: flex; align-items: center;">

@@ -7,7 +7,7 @@
     --card-bg1: rgb(44, 38, 57);
     --header-bg: rgba(26, 23, 33, 0.905);
     /* --card-bg3: TODO */
-    ;
+    overscroll-behavior: none;
     /* padding: 0;
     margin: 0; */
 }
@@ -128,6 +128,8 @@ header {
     text-decoration: none;
     font-size: 25px;
 
+    /* It renders as bold without this on the About page */
+    font-weight: normal !important;
 
     width: 100vw;
     text-align: center;
@@ -450,3 +452,82 @@ li {
 /* .unique-visitors-counter {
     color: var(--primary);
 } */
+
+
+
+/* ========== Toast ========== */
+.toast {
+    position: fixed;
+    right: 0;
+    bottom: 120px;
+    /* height: 47.5px; */
+    /* width: 355px; */
+    background-color: #286ad3;
+    box-shadow: 3px 3px 0px #092f6c;
+    padding: 10px;
+
+    border-radius: 15px 0 0 15px;
+
+    /* Start fully off-screen to the right relative to itself */
+    transform: translateX(100%);
+
+    transition: transform 0.3s ease;
+
+
+    cursor: pointer;
+}
+
+.toast:hover {
+    /* scale: 0.99; */
+    translate: 1px 2px;
+}
+
+.toast.show {
+    /* Slide onto the screen */
+    transform: translateX(1%);
+}
+
+.toast-inner-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    /* height: 47.5; */
+    /* background-color: red; */
+}
+
+.toast-body {
+    margin: 0px;
+    padding: 0px;
+}
+
+.toast-icon {
+    scale: 1.6;
+    /* padding: 5px; */
+    /* height: max-content; */
+    /* display: none; */
+}
+
+.toast-icon-wrapper {
+    background-color: #14489c;
+    align-self: stretch;
+    aspect-ratio: 1;
+    margin-right: 10px;
+    width: 47.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
+    border-radius: 5px;
+    box-shadow: 2px 2px 0px #092f6c;
+}
+
+.toast-body>.fa-arrow-right-from-bracket {
+    margin-left: 5px;
+}
+
+toast-banner>a {
+    color: var(--text-primary);
+}

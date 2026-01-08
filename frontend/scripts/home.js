@@ -198,3 +198,21 @@ async function updateHackatimeCard(){
 }
 
 updateHackatimeCard()
+
+
+// Display Toast
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function displayToast(){
+    await sleep(3000)
+    const toast = document.createElement("toast-banner")
+    toast.setAttribute("body", "Hey 👋, take a look at my projects!")
+    toast.setAttribute("class", "toast-banner")
+    // toast.setAttribute("href","/frontend/pages/projects.html")
+    // toast.addEventListener("click", () => {window.location.href = })
+    document.body.appendChild(toast)
+}
+displayToast()
+

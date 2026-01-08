@@ -27,7 +27,7 @@
 }
 
 hr {
-    width: calc(80vw + 0px);
+    /* width: 90vw; */
     border-color: var(--secondary);
 }
 
@@ -37,11 +37,19 @@ hr {
         width: 80vw;
     }
 
+    hr {
+        width: 80vw;
+    }
+
 }
 
 @media only screen and (orientation: portrait) {
     .about-me-description-container {
-        width: 93.5vw;
+        width: 90vw;
+    }
+
+    hr {
+        width: 90vw;
     }
 }
 
@@ -64,11 +72,11 @@ md-block>h3 {
 }
 
 a {
-    color: var(--primary);
+    color: var(--secondary);
     font-weight: bold;
     transition: color 0.2s ease;
 }
 
 a:hover {
-    color: var(--secondary);
+    color: var(--primary);
 }

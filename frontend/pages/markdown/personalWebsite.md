@@ -8,10 +8,10 @@ The website will contain the following features. I will tick them off once I fin
 
 -   [x] Homepage
 -   [x] Updateable Projects Page
--   [ ] About Page
+-   [x] About Page
 -   [ ] Contact Page
 -   [ ] A place to leave messages from visitors
--   [ ] Analytics - e.g unique visitors
+-   [x] Analytics - e.g unique visitors
 -   [ ] _Fun features_
 
 ## Home Page
