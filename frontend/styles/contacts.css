@@ -180,6 +180,18 @@ a:active {
     font-size: 12px;
 }
 
+.rate-limit-message {
+    color: #d97706;
+    margin-left: 10px;
+    font-size: 12px;
+    min-height: 14px;
+}
+
+.message-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
 .message-cards-container {
     display: grid;
     /* grid-template-columns: auto auto auto; */

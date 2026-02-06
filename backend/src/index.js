@@ -87,6 +87,34 @@ async function hashString(inputString, salt) {
     return hashHex;
 }
 
+async function checkRateLimit(request, env) {
+	const ip = request.headers.get("CF-Connecting-IP") || "127.0.0.1"
+	const hash = (await hashString(ip, env.ENC_SALT)).toString()
+	const now = Date.now()
+	const windowMs = 5 * 60 * 1000
+
+	await env.DB
+		.prepare("CREATE TABLE IF NOT EXISTS tbl_rate_limits (ip_hash TEXT PRIMARY KEY, last_request INTEGER)")
+		.run()
+
+	const row = await env.DB
+		.prepare("SELECT last_request FROM tbl_rate_limits WHERE ip_hash = ?")
+		.bind(hash)
+		.first()
+
+	if (row?.last_request && now - row.last_request < windowMs) {
+		const retryAfterSeconds = Math.ceil((windowMs - (now - row.last_request)) / 1000)
+		return { allowed: false, retryAfterSeconds }
+	}
+
+	await env.DB
+		.prepare("INSERT OR REPLACE INTO tbl_rate_limits (ip_hash, last_request) VALUES (?, ?)")
+		.bind(hash, now)
+		.run()
+
+	return { allowed: true }
+}
+
 async function handleUniqueUser(request, env){
 	const ip = request.headers.get("CF-Connecting-IP") || "127.0.0.1"
 	const SALT = env.ENC_SALT
@@ -247,6 +275,17 @@ export default {
 					const content = url.searchParams.get("content") || ""
 					const author = url.searchParams.get("author") || ""
 					const captchaToken = url.searchParams.get("captchaToken") || ""
+					const rateLimit = await checkRateLimit(request, env)
+					if (!rateLimit.allowed) {
+						return Response.json({ error: "Rate limited", retryAfterSeconds: rateLimit.retryAfterSeconds }, {
+							status: 429,
+							headers: {
+								...corsHeaders,
+								'Content-Type': 'application/json',
+								'Retry-After': String(rateLimit.retryAfterSeconds)
+							}
+						})
+					}
 					const result = await handleMessageSending(env, content, author, captchaToken)
 					return Response.json(result ?? { ok: true }, {
 						headers: {

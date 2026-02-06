@@ -45,6 +45,39 @@ else {
     console.log("win || linux")
     keyPrompt.innerHTML = "CTRL + ↵"
 }
+const messageBtn = document.getElementsByClassName("message-btn")[0]
+const rateLimitMessage = document.getElementsByClassName("rate-limit-message")[0]
+let rateLimitTimeoutId = null
+
+function setRateLimited(retryAfterSeconds) {
+    if (!messageBtn || !rateLimitMessage) {
+        return
+    }
+    const seconds = Math.max(1, Number(retryAfterSeconds) || 300)
+    messageBtn.disabled = true
+    rateLimitMessage.textContent = `Rate limited. Try again in ${seconds}s.`
+
+    if (rateLimitTimeoutId) {
+        clearTimeout(rateLimitTimeoutId)
+    }
+    rateLimitTimeoutId = setTimeout(() => {
+        messageBtn.disabled = false
+        rateLimitMessage.textContent = ""
+        rateLimitTimeoutId = null
+    }, seconds * 1000)
+}
+
+function clearRateLimitMessage() {
+    if (!messageBtn || !rateLimitMessage) {
+        return
+    }
+    if (rateLimitTimeoutId) {
+        clearTimeout(rateLimitTimeoutId)
+        rateLimitTimeoutId = null
+    }
+    messageBtn.disabled = false
+    rateLimitMessage.textContent = ""
+}
 async function sendMessage(captchaToken){
     const content = document.getElementsByClassName("message-content-input")[0].value
     const author = document.getElementsByClassName("message-name-input")[0].value
@@ -59,9 +92,14 @@ async function sendMessage(captchaToken){
             document.getElementsByClassName("message-content-input")[0].value = ''
             document.getElementsByClassName("message-name-input")[0].value = ''
             goThruAllCards()
-
+            clearRateLimitMessage()
         } else {
-            console.error(`Error: ${response.status}`)
+            if (response.status === 429) {
+                const result = await response.json().catch(() => ({}))
+                setRateLimited(result.retryAfterSeconds)
+            } else {
+                console.error(`Error: ${response.status}`)
+            }
         }
     }
     catch(error){
