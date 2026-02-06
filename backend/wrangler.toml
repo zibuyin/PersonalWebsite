@@ -10,9 +10,8 @@ binding = "DB"
 database_name = "personal-website-sql"
 database_id = "27bdb95a-3ec9-4feb-9306-294226f93fb6"
 
-send_email = [
-    {name = "emailWorker", destination_address = "natdrone101@gmail.com"},
-]
+[[send_email]]
+name = "emailWorker"
 
 [vars]
 RECAPTCHA_PROJECT_ID = "gen-lang-client-0474456749",

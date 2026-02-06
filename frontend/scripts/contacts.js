@@ -118,10 +118,17 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 })
 async function sendMessage(captchaToken){
-    const content = document.getElementsByClassName("message-content-input")[0].value
-    const author = document.getElementsByClassName("message-name-input")[0].value
+    const content = document.getElementsByClassName("message-content-input")[0].value.trim()
+    const author = document.getElementsByClassName("message-name-input")[0].value.trim() || "Anonymous"
+    const contact = document.getElementsByClassName("message-contact-input")[0].value.trim()
+    
+    if (!content) {
+        alert("Please enter a message.")
+        return
+    }
+    
     try {
-        const url = `https://backend.natdrone101.workers.dev/api/v1/leaveMessage?content=${encodeURIComponent(content)}&author=${encodeURIComponent(author)}&captchaToken=${encodeURIComponent(captchaToken)}`
+        const url = `https://backend.natdrone101.workers.dev/api/v1/leaveMessage?content=${encodeURIComponent(content)}&author=${encodeURIComponent(author)}&contact=${encodeURIComponent(contact)}&captchaToken=${encodeURIComponent(captchaToken)}`
         const response = await fetch (url, {
             method: "PUT"
         })

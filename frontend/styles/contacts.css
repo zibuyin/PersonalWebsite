@@ -139,6 +139,25 @@ a:active {
     outline: none;
 }
 
+.message-contact-input {
+    background-color: var(--bg-color);
+    margin-bottom: 10px;
+    height: 20px;
+
+    border: solid var(--secondary) 2px;
+    border-radius: 12px;
+
+    color: var(--text-primary);
+    font-size: 15px;
+    padding: 6px;
+
+    outline: none;
+}
+
+.message-contact-input:focus {
+    border-color: var(--primary);
+}
+
 .message-btn {
     width: fit-content;
     background-color: var(--card-bg1) !important;
