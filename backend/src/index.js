@@ -126,8 +126,70 @@ async function getMessages(env) {
 	}
 		
 }
-async function handleMessageSending(env, content, author){
+async function validateRecaptchaToken(env, token) {
+	const projectId = env.RECAPTCHA_PROJECT_ID;
+	const apiKey = env.RECAPTCHA_API_KEY;
+	const siteKey = env.RECAPTCHA_SITE_KEY;
+	
+	try {
+		const response = await fetch(
+			`https://recaptchaenterprise.googleapis.com/v1/projects/${projectId}/assessments?key=${apiKey}`,
+			{
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					event: {
+						token: token,
+						expectedAction: 'submit',
+						siteKey: siteKey
+					}
+				})
+			}
+		);
+		
+		const result = await response.json();
+		console.log('reCAPTCHA Assessment Full Response:', JSON.stringify(result));
+		
+		// Check if the API call was successful
+		if (!response.ok) {
+			console.error('Google API Error:', result);
+			return { valid: false, error: 'Google API returned error', details: result };
+		}
+		
+		// Return true if valid, false otherwise
+		if (result.riskAnalysis) {
+			console.log('Risk Score:', result.riskAnalysis.score);
+			return {
+				valid: true,
+				score: result.riskAnalysis.score,
+				reasons: result.riskAnalysis.reasons
+			};
+		}
+		
+		console.log('No riskAnalysis in response');
+		return { valid: false, error: 'No riskAnalysis in response', details: result };
+	} catch (error) {
+		console.error('reCAPTCHA validation error:', error.message);
+		console.error('Full error:', error);
+		return { valid: false, error: error.message };
+	}
+}
+
+async function handleMessageSending(env, content, author, captchaToken){
 	const date = new Date().toJSON()
+	
+	// Validate reCAPTCHA token first
+	if (captchaToken) {
+		const validation = await validateRecaptchaToken(env, captchaToken);
+		console.log('Token validation result:', validation);
+		
+		if (!validation.valid) {
+			return { error: 'CAPTCHA validation failed', details: validation };
+		}
+	} else {
+		return { error: 'CAPTCHA token is required' };
+	}
+	
 	try {
 		await env.DB
 			.prepare(
@@ -184,7 +246,8 @@ export default {
 				try {
 					const content = url.searchParams.get("content") || ""
 					const author = url.searchParams.get("author") || ""
-					const result = await handleMessageSending(env, content, author)
+					const captchaToken = url.searchParams.get("captchaToken") || ""
+					const result = await handleMessageSending(env, content, author, captchaToken)
 					return Response.json(result ?? { ok: true }, {
 						headers: {
 							...corsHeaders,

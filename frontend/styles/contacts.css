@@ -141,12 +141,26 @@ a:active {
 
 .message-btn {
     width: fit-content;
-    background-color: var(--card-bg1);
+    background-color: var(--card-bg1) !important;
     /* margin-top: 30px; */
     padding: 10px;
     border-radius: 20px;
 
     cursor: pointer;
+    border: none;
+    color: inherit;
+    font: inherit;
+}
+
+.message-btn.g-recaptcha {
+    width: fit-content;
+    background-color: var(--card-bg1) !important;
+    padding: 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    border: none;
+    color: inherit;
+    font: inherit;
 }
 
 /* .message-btn:hover {

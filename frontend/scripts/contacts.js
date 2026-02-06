@@ -45,13 +45,10 @@ else {
     console.log("win || linux")
     keyPrompt.innerHTML = "CTRL + ↵"
 }
-async function sendMessage(){
+async function sendMessage(captchaToken){
     const content = document.getElementsByClassName("message-content-input")[0].value
-    const author =document.getElementsByClassName("message-name-input")[0].value
+    const author = document.getElementsByClassName("message-name-input")[0].value
     try {
-        // Get reCAPTCHA token
-        const captchaToken = await grecaptcha.execute('6LeWmmIsAAAAACao-hysDbtpF1WgXeDcXJLiGOPL', { action: 'sendMessage' })
-        
         const url = `https://backend.natdrone101.workers.dev/api/v1/leaveMessage?content=${encodeURIComponent(content)}&author=${encodeURIComponent(author)}&captchaToken=${encodeURIComponent(captchaToken)}`
         const response = await fetch (url, {
             method: "PUT"

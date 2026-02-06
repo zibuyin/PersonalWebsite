@@ -17,11 +17,13 @@
     <link rel="stylesheet" href="/frontend/styles/styles.css" />
     <link rel="stylesheet" href="/frontend/styles/contacts.css" />
     <link rel="stylesheet" href="/frontend/styles/snow.compiled.css" />
+
+    <!-- reCAPTCHA Enterprise -->
+    <script
+        src="https://www.google.com/recaptcha/enterprise.js?render=6LfVk2IsAAAAAE8R7srTyEUIk7a77-0UV7G1d61z"></script>
+
     <script src="/frontend/scripts/script.js" defer></script>
     <script src="/frontend/scripts/contacts.js" defer></script>
-
-    <!-- reCAPTCHA -->
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
     <!-- Icons -->
     <script src="https://kit.fontawesome.com/11fde4d098.js" crossorigin="anonymous"></script>
@@ -34,6 +36,18 @@
     <!--  -->
     <title>Nathan - Contacts</title>
     <meta name="description" content="This is the contacts page, it tells people how to contact me." />
+    <script>
+        async function handleSendMessage() {
+            try {
+                const token = await grecaptcha.enterprise.execute('6LfVk2IsAAAAAE8R7srTyEUIk7a77-0UV7G1d61z', { action: 'submit' });
+                console.log('Token received:', token);
+                sendMessage(token);
+            } catch (error) {
+                console.error('reCAPTCHA error:', error);
+                alert('reCAPTCHA failed. Please try again.');
+            }
+        }
+    </script>
 </head>
 
 
@@ -51,13 +65,10 @@
                 <textarea class="message-content-input" placeholder="Leave a message :3!" maxlength="100"
                     minlength="1"></textarea>
                 <textarea class="message-name-input" placeholder="Leave your name!"></textarea>
-                <div class="g-recaptcha" data-sitekey="6LeWmmIsAAAAACao-hysDbtpF1WgXeDcXJLiGOPL"></div>
                 <div class="message-btn-container">
-                    <a class="message-btn" onclick="sendMessage()">
-                        <!-- <div> -->
+                    <button class="message-btn" onclick="handleSendMessage()">
                         Send <i class="fa-solid fa-paper-plane"></i>
-                        <!-- </div> -->
-                    </a>
+                    </button>
                     <div class="key-prompt">⌘ + ↵</div>
                 </div>
             </div>
