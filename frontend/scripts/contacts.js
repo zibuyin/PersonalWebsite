@@ -47,37 +47,76 @@ else {
 }
 const messageBtn = document.getElementsByClassName("message-btn")[0]
 const rateLimitMessage = document.getElementsByClassName("rate-limit-message")[0]
-let rateLimitTimeoutId = null
+let rateLimitIntervalId = null
+const RATE_LIMIT_KEY = 'messageSendRateLimitExpiry'
+
+function updateRateLimitCountdown() {
+    if (!messageBtn || !rateLimitMessage) {
+        return
+    }
+    const expiryTime = localStorage.getItem(RATE_LIMIT_KEY)
+    if (!expiryTime) {
+        messageBtn.disabled = false
+        rateLimitMessage.textContent = ""
+        if (rateLimitIntervalId) {
+            clearInterval(rateLimitIntervalId)
+            rateLimitIntervalId = null
+        }
+        return
+    }
+
+    const now = Date.now()
+    const secondsLeft = Math.ceil((expiryTime - now) / 1000)
+
+    if (secondsLeft <= 0) {
+        messageBtn.disabled = false
+        rateLimitMessage.textContent = ""
+        localStorage.removeItem(RATE_LIMIT_KEY)
+        if (rateLimitIntervalId) {
+            clearInterval(rateLimitIntervalId)
+            rateLimitIntervalId = null
+        }
+        return
+    }
+
+    messageBtn.disabled = true
+    rateLimitMessage.textContent = `Rate limited. Try again in ${secondsLeft}s.`
+}
 
 function setRateLimited(retryAfterSeconds) {
     if (!messageBtn || !rateLimitMessage) {
         return
     }
     const seconds = Math.max(1, Number(retryAfterSeconds) || 300)
-    messageBtn.disabled = true
-    rateLimitMessage.textContent = `Rate limited. Try again in ${seconds}s.`
+    const expiryTime = Date.now() + seconds * 1000
+    localStorage.setItem(RATE_LIMIT_KEY, expiryTime)
 
-    if (rateLimitTimeoutId) {
-        clearTimeout(rateLimitTimeoutId)
+    if (rateLimitIntervalId) {
+        clearInterval(rateLimitIntervalId)
     }
-    rateLimitTimeoutId = setTimeout(() => {
-        messageBtn.disabled = false
-        rateLimitMessage.textContent = ""
-        rateLimitTimeoutId = null
-    }, seconds * 1000)
+    updateRateLimitCountdown()
+    rateLimitIntervalId = setInterval(updateRateLimitCountdown, 1000)
 }
 
 function clearRateLimitMessage() {
     if (!messageBtn || !rateLimitMessage) {
         return
     }
-    if (rateLimitTimeoutId) {
-        clearTimeout(rateLimitTimeoutId)
-        rateLimitTimeoutId = null
+    if (rateLimitIntervalId) {
+        clearInterval(rateLimitIntervalId)
+        rateLimitIntervalId = null
     }
+    localStorage.removeItem(RATE_LIMIT_KEY)
     messageBtn.disabled = false
     rateLimitMessage.textContent = ""
 }
+
+window.addEventListener('DOMContentLoaded', () => {
+    updateRateLimitCountdown()
+    if (localStorage.getItem(RATE_LIMIT_KEY)) {
+        rateLimitIntervalId = setInterval(updateRateLimitCountdown, 1000)
+    }
+})
 async function sendMessage(captchaToken){
     const content = document.getElementsByClassName("message-content-input")[0].value
     const author = document.getElementsByClassName("message-name-input")[0].value
@@ -96,7 +135,8 @@ async function sendMessage(captchaToken){
         } else {
             if (response.status === 429) {
                 const result = await response.json().catch(() => ({}))
-                setRateLimited(result.retryAfterSeconds)
+                const retrySeconds = result.retryAfterSeconds || 300
+                setRateLimited(retrySeconds)
             } else {
                 console.error(`Error: ${response.status}`)
             }
