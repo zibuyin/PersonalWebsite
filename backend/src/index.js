@@ -12,6 +12,9 @@
 // CONSTANTS
 const HACKATIME_URL = "https://hackatime.hackclub.com/api/v1"
 const FLAVOURTOWN_URL = "https://flavortown.hackclub.com/api/v1/projects/3584/devlogs"
+import { EmailMessage } from "cloudflare:email";
+import { createMimeMessage } from "mimetext";
+
 
 async function getHackatimeResponse(urlRequest,env){
 	const apiKey = env.HACKATIME_API_KEY
@@ -109,6 +112,35 @@ async function handleUniqueUser(request, env){
 	}
 				
 }
+async function getMessages(env) {
+	try{		
+		const { results } = await env.DB
+			.prepare(
+				"SELECT message_content, message_author, message_date FROM tbl_messages ORDER BY message_date DESC"
+			)
+			.run()
+		return { messages: results }
+	}
+	catch (error){
+		return {error: error.message};
+	}
+		
+}
+async function handleMessageSending(env, content, author){
+	const date = new Date().toJSON()
+	try {
+		await env.DB
+			.prepare(
+				"INSERT INTO tbl_messages (message_content, message_author, message_date) VALUES (?, ?, ?)"
+			)
+			.bind(content, author, date)
+			.run()
+		return { ok: true }
+	}
+	catch (error){
+		return {error: error.message}
+	}
+}
 
 // TODO
 // async function handleFileNameArray(array){
@@ -118,8 +150,12 @@ async function handleUniqueUser(request, env){
 
 export default {
 	async fetch(request, env, ctx) {
-		const url = new URL(request.url)
-
+		let url;
+		try {
+			url = new URL(request.url || "");
+		} catch (err) {
+			return new Response("Invalid request URL", { status: 400 });
+		}
 		// CORS Headers
 		const corsHeaders = {
 			'Access-Control-Allow-Origin': '*',
@@ -138,11 +174,32 @@ export default {
 			if (url.pathname.includes("posts/uniqueVisitor")){
 				const result = await handleUniqueUser(request, env);
 				return Response.json(result, {
-				headers: {
-				...corsHeaders,
-				'Content-Type': 'application/json'
-			}});
-
+					headers: {
+						...corsHeaders,
+						'Content-Type': 'application/json'
+					}
+				});
+			}
+			else if (url.pathname.includes("/api/v1/leaveMessage")){
+				try {
+					const content = url.searchParams.get("content") || ""
+					const author = url.searchParams.get("author") || ""
+					const result = await handleMessageSending(env, content, author)
+					return Response.json(result ?? { ok: true }, {
+						headers: {
+							...corsHeaders,
+							'Content-Type': 'application/json'
+						}
+					})
+				} catch (error) {
+					return Response.json({ error: error.message }, {
+						status: 500,
+						headers: {
+							...corsHeaders,
+							'Content-Type': 'application/json'
+						}
+					})
+				}
 			}
 
 			// TODO
@@ -156,11 +213,10 @@ export default {
 			// 		}
 			// 	})
 			// }
-
 		}
-		if (url.pathname.includes("/api/v1/hackatime")){
-			const requestURL = url.pathname
-			const parsedURL = requestURL.slice(17)
+		
+		if (url.pathname && url.pathname.includes("/api/v1/hackatime")){
+			const parsedURL = (url.pathname || "").replace("/api/v1/hackatime", "")
 			console.log(parsedURL)
 			const data = await getHackatimeResponse(parsedURL, env);
 			return Response.json(data, { headers: corsHeaders });
@@ -169,11 +225,53 @@ export default {
 			const data = await getFlavourTownResponse(env);
 			return Response.json(data, { headers: corsHeaders });
 		}
+		else if (url.pathname === "/api/v1/messages"){
+			const data = await getMessages(env);
+			return Response.json(data, { headers: corsHeaders });
+		}
+			
+			// return Response(result, {
+			// 	headers: {
+			// 	...corsHeaders,
+			// 	'Content-Type': 'application/json'
+			// }});
+			// const result = await handleEmailSending(request, env);
+			// return result || new Response("Email sent", { headers: corsHeaders });
 		else{
 			return new Response(`Cannot GET from URL ${url.pathname}`, { headers: corsHeaders })
 		}
+		
 		
 	},
 };
 
 
+
+
+// async function debugTestEmail(env) {
+// 	const senderAddr = env.EMAIL_SENDER || "auto-mail@nathanyin.com";
+// 	const recipientAddr = env.EMAIL_RECIPIENT || "natdrone101@gmail.com";
+
+// 	const msg = createMimeMessage();
+// 	msg.setSender({ name: "GPT-4", addr: senderAddr });
+// 	msg.setRecipient(recipientAddr);
+// 	msg.setSubject("An email generated in a worker");
+// 	msg.addMessage({
+// 		contentType: "text/plain",
+// 		data: `Congratulations, you just sent an email from a worker.`,
+// 	});
+
+// 	// Envelope must match headers to satisfy SPF/DMARC
+// 	const message = new EmailMessage(
+// 		senderAddr,
+// 		recipientAddr,
+// 		msg.asRaw(),
+// 	);
+// 	try {
+// 		await env.emailWorker.send(message);
+// 	} catch (e) {
+// 		return new Response(e.message);
+// 	}
+
+// 	return new Response("Hello Send Email World!");
+// }

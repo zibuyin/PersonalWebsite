@@ -7,6 +7,7 @@
 	"name": "backend",
 	"main": "src/index.js",
 	"compatibility_date": "2026-01-01",
+	"compatibility_flags": ["nodejs_compat"],
 	"observability": {
 		"enabled": true
 	},
@@ -14,6 +15,12 @@
 		{
 			"binding": "DB",
 			"database_id": "27bdb95a-3ec9-4feb-9306-294226f93fb6"
+		}
+	],
+	"send_email": [
+		{
+			"name": "emailWorker",
+			"destination_address": "natdrone101@gmail.com"
 		}
 	]
 	/**

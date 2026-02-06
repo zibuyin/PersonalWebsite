@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNXFV9PZRF"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-GNXFV9PZRF');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/frontend/styles/styles.css" />
+    <link rel="stylesheet" href="/frontend/styles/contacts.css" />
+    <link rel="stylesheet" href="/frontend/styles/snow.compiled.css" />
+    <script src="/frontend/scripts/script.js" defer></script>
+    <script src="/frontend/scripts/contacts.js" defer></script>
+
+    <!-- reCAPTCHA -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+    <!-- Icons -->
+    <script src="https://kit.fontawesome.com/11fde4d098.js" crossorigin="anonymous"></script>
+    <script type="module" src="https://md-block.verou.me/md-block.js"></script>
+
+    <!-- Fonts -->
+    <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet"> -->
+    <!--  -->
+    <title>Nathan - Contacts</title>
+    <meta name="description" content="This is the contacts page, it tells people how to contact me." />
+</head>
+
+
+<body>
+
+    <site-header></site-header>
+
+    <div class="contacts-page">
+        <h1 class="page-title">Contacts</h1></a>
+        <hr />
+        <div class="about-me-description-container">
+
+            <div class="leave-message-container">
+                <h2>Leave a message!</h2>
+                <textarea class="message-content-input" placeholder="Leave a message :3!" maxlength="100"
+                    minlength="1"></textarea>
+                <textarea class="message-name-input" placeholder="Leave your name!"></textarea>
+                <div class="g-recaptcha" data-sitekey="6LeWmmIsAAAAACao-hysDbtpF1WgXeDcXJLiGOPL"></div>
+                <div class="message-btn-container">
+                    <a class="message-btn" onclick="sendMessage()">
+                        <!-- <div> -->
+                        Send <i class="fa-solid fa-paper-plane"></i>
+                        <!-- </div> -->
+                    </a>
+                    <div class="key-prompt">⌘ + ↵</div>
+                </div>
+            </div>
+            <div class="message-cards-container">
+                <message-card content="This is a sample message card, here is the CONTENT" date="2026-1-23"
+                    author="Test Name"></message-card>
+            </div>
+            <!-- <md-block src="about.md">
+                # Loading About Me... This *Might* Take Some Time
+            </md-block> -->
+
+
+            <div></div>
+        </div>
+    </div>
+
+    <site-footer></site-footer>
+</body>
+
+<!-- Custom Component Imports -->
+<script src="/frontend/components/header.js"></script>
+<script src="/frontend/components/footer.js"></script>
+<script src="/frontend/components/messageCard.js"></script>
+<!-- <script src="/frontend/components/hackatimeGraph.js"></script> -->
+
+</html>

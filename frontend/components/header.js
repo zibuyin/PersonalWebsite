@@ -13,7 +13,7 @@ class SiteHeader extends HTMLElement {
             <a href="/index.html">Home</a>
             <a href="/frontend/pages/projects.html">Projects</a>
             <a href="/frontend/pages/about.html">About</a>
-            <a>Contact</a>
+            <a href="/frontend/pages/contacts.html">Contact</a>
 
         </div>
         <div class="PHONE-header-btns-wrapper">
@@ -27,7 +27,7 @@ class SiteHeader extends HTMLElement {
             <a href="/index.html">Home</a>
             <a href="/frontend/pages/projects.html">Projects</a>
             <a href="/frontend/pages/about.html">About</a>
-            <a>Contact</a>
+            <a href="/frontend/pages/contacts.html">Contact</a>
 
         </div>
         <a class="PHONE-clickable-layer" onClick="togglePhoneNavbar()"><div class="PHONE-blur-layer"></div></a>
