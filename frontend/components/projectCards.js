@@ -12,7 +12,6 @@ class ProjectCard extends HTMLElement {
                   <div class="project-card-title-wrapper ${customClassName}">
                       <h2 class="project-card-title">${title}</h2>
                       <p class="project-card-subtitle">${subtitle}</p>
-                      <p>${views} Views</p>
                   </div>
                   <img class="project-card-image"
                       src="${imgsrc}"></img>
