@@ -261,3 +261,41 @@ a:active {
     color: var(--primary);
     font-weight: bold;
 }
+
+.message-btn {
+    transition: scale 0.2s;
+}
+
+.message-btn:active {
+    scale: 0.9;
+}
+
+.rate-limit-prompt {
+    margin-top: 0px;
+    color: gray;
+}
+
+
+.message-sent-alert {
+    position: fixed !important;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 15px 25px;
+    background-color: var(--card-bg1);
+    border: solid var(--primary) 2px;
+    border-radius: 200px;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.message-sent-alert.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.message-sent-alert>p {
+    margin: 0px;
+}

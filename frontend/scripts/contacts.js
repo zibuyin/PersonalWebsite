@@ -47,8 +47,18 @@ else {
 }
 const messageBtn = document.getElementsByClassName("message-btn")[0]
 const rateLimitMessage = document.getElementsByClassName("rate-limit-message")[0]
+const messageSentAlert = document.getElementsByClassName("message-sent-alert")[0]
 let rateLimitIntervalId = null
 const RATE_LIMIT_KEY = 'messageSendRateLimitExpiry'
+
+function showAlert(message, duration = 3000) {
+    if (!messageSentAlert) return
+    messageSentAlert.querySelector('p').textContent = message
+    messageSentAlert.classList.add('show')
+    setTimeout(() => {
+        messageSentAlert.classList.remove('show')
+    }, duration)
+}
 
 function updateRateLimitCountdown() {
     if (!messageBtn || !rateLimitMessage) {
@@ -122,11 +132,6 @@ async function sendMessage(captchaToken){
     const author = document.getElementsByClassName("message-name-input")[0].value.trim() || "Anonymous"
     const contact = document.getElementsByClassName("message-contact-input")[0].value.trim()
     
-    if (!content) {
-        alert("Please enter a message.")
-        return
-    }
-    
     try {
         const url = `https://backend.natdrone101.workers.dev/api/v1/leaveMessage?content=${encodeURIComponent(content)}&author=${encodeURIComponent(author)}&contact=${encodeURIComponent(contact)}&captchaToken=${encodeURIComponent(captchaToken)}`
         const response = await fetch (url, {
@@ -137,20 +142,25 @@ async function sendMessage(captchaToken){
             console.log("Message sent:", result)
             document.getElementsByClassName("message-content-input")[0].value = ''
             document.getElementsByClassName("message-name-input")[0].value = ''
-            goThruAllCards()
+            document.getElementsByClassName("message-contact-input")[0].value = ''
             clearRateLimitMessage()
+            showAlert('✅ Message Sent! It will take a few seconds to load', 3000)
+            await goThruAllCards()
         } else {
             if (response.status === 429) {
                 const result = await response.json().catch(() => ({}))
                 const retrySeconds = result.retryAfterSeconds || 300
                 setRateLimited(retrySeconds)
+                showAlert(`⏱️ Rate Limited. Try again in ${retrySeconds}s`, 3000)
             } else {
                 console.error(`Error: ${response.status}`)
+                showAlert(`❌ Error: ${response.status}. Please try again.`, 3000)
             }
         }
     }
     catch(error){
         console.log(error.message)
+        showAlert(`❌ Failed to send message. Please try again.`, 3000)
     }
     
 }
@@ -200,3 +210,24 @@ async function goThruAllCards() {
 
 
 goThruAllCards()
+
+async function handleSendMessage() {
+    // Validate content first
+    const content = document.getElementsByClassName("message-content-input")[0].value.trim()
+    if (!content) {
+        alert("Please enter a message.")
+        return
+    }
+    
+    // Show sending alert immediately
+    showAlert('📤 Sending message...', 5000)
+    
+    try {
+        const token = await grecaptcha.enterprise.execute('6LfVk2IsAAAAAE8R7srTyEUIk7a77-0UV7G1d61z', { action: 'submit' });
+        console.log('Token received:', token);
+        sendMessage(token);
+    } catch (error) {
+        console.error('reCAPTCHA error:', error);
+        showAlert('❌ reCAPTCHA failed. Please try again.', 3000)
+    }
+}

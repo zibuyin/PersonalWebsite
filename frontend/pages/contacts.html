@@ -36,18 +36,6 @@
     <!--  -->
     <title>Nathan - Contacts</title>
     <meta name="description" content="This is the contacts page, it tells people how to contact me." />
-    <script>
-        async function handleSendMessage() {
-            try {
-                const token = await grecaptcha.enterprise.execute('6LfVk2IsAAAAAE8R7srTyEUIk7a77-0UV7G1d61z', { action: 'submit' });
-                console.log('Token received:', token);
-                sendMessage(token);
-            } catch (error) {
-                console.error('reCAPTCHA error:', error);
-                alert('reCAPTCHA failed. Please try again.');
-            }
-        }
-    </script>
 </head>
 
 
@@ -56,13 +44,16 @@
     <site-header></site-header>
 
     <div class="contacts-page">
+        <div class="message-sent-alert">
+            <p>✅ Message Sent! It will take a few seconds to load</p>
+        </div>
         <h1 class="page-title">Contacts</h1></a>
         <hr />
         <div class="about-me-description-container">
             <h2>📬 natdrone101@gmail.com</h2>
             <div class="leave-message-container">
                 <h2>Leave a message!</h2>
-                <!-- <p>Limited to 1 message per 5 minutes!</p> -->
+                <p class="rate-limit-prompt">Limited to 1 message per 5 minutes!</p>
                 <textarea class="message-content-input" placeholder="Leave a message :3!" maxlength="100"
                     minlength="1"></textarea>
                 <textarea class="message-name-input" placeholder="Leave your name! (optional)"></textarea>

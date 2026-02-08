@@ -1,6 +1,6 @@
 // Default States (Initializer)
 if (localStorage.getItem("snowTheme") === null){
-    localStorage.setItem("snowTheme", "true")
+    localStorage.setItem("snowTheme", "false")
 }
 
 // Dynamic footer positioning
