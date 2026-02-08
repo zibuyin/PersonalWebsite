@@ -1,4 +1,4 @@
-# My Personal Website ![Hackatime](https://hackatime-badge.hackclub.com/U08HYM19NJE/PersonalWebsite)
+# 🌟 My Personal Website ![Hackatime](https://hackatime-badge.hackclub.com/U08HYM19NJE/PersonalWebsite)
 
 A full-stack personal portfolio website built with vanilla JavaScript and Cloudflare Workers, featuring an interactive messaging system with enterprise-grade security _(Ok maybe not quite enterprise-grade, thats hyperbole)_.
 
