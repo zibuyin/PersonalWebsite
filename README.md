@@ -137,15 +137,6 @@ Hosted on GitHub Pages. Push to `main` branch to deploy.
 - Sent from verified domain: `auto-mail@nathanyin.com`
 - Includes sender name, content, timestamp, and optional contact info
 
-## TODO
-
-- [ ] Enhanced project display (highlighting, featured cards)
-- [ ] Custom 404 page
-- [ ] Individual project view counters
-- [ ] Dark/light theme toggle
-- [ ] Search functionality
-- [ ] Project tagging system
-
 ## Dependencies
 
 - [md-block](https://md-block.verou.me/) - Markdown rendering
