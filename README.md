@@ -1,6 +1,6 @@
-# 🌟 My Personal Website ![Hackatime](https://hackatime-badge.hackclub.com/U08HYM19NJE/PersonalWebsite)
+# My Personal Website ![Hackatime](https://hackatime-badge.hackclub.com/U08HYM19NJE/PersonalWebsite)
 
-A full-stack personal portfolio website built with vanilla JavaScript and Cloudflare Workers, featuring an interactive messaging system with enterprise-grade security _(Ok maybe not quite enterprise-grade, thats hyperbole)_.
+A personal portfolio website built with vanilla JavaScript and Cloudflare Workers, featuring an interactive messaging system with enterprise-grade security _(Ok maybe not quite enterprise-grade, thats hyperbole)_.
 
 ## Features
 
@@ -20,7 +20,6 @@ A full-stack personal portfolio website built with vanilla JavaScript and Cloudf
 - **Real-time Feedback**: Toast notifications for success/error states
 - **Data Validation**: Content validation, optional name/contact fields
 - **Persistence**: LocalStorage-backed rate limit tracking across page reloads
-- **Debug Mode**: Bypass rate limiting for testing with `author="debug"`
 
 ### Backend (Cloudflare Workers)
 
@@ -31,7 +30,7 @@ A full-stack personal portfolio website built with vanilla JavaScript and Cloudf
 - **Security**: IP hashing, salted storage, request validation
 - **Analytics**: Unique visitor tracking with privacy-focused design
 
-## Technology Stack
+## Technologies
 
 **Frontend**
 
@@ -45,53 +44,13 @@ A full-stack personal portfolio website built with vanilla JavaScript and Cloudf
 - Cloudflare Workers (Serverless)
 - Cloudflare D1 (SQLite)
 - Cloudflare Email Workers
-- Node.js compatibility mode
+- Node.js compat
 
 **Deployment**
 
 - Frontend: GitHub Pages
 - Backend: Cloudflare Workers
 - Database: Cloudflare D1
-
-## Project Structure
-
-```
-PersonalWebsite/
-├── index.html                 # Homepage
-├── frontend/
-│   ├── components/           # Web components (header, footer, cards)
-│   ├── pages/               # HTML pages (about, contacts, projects)
-│   ├── scripts/             # JavaScript modules
-│   └── styles/              # CSS stylesheets
-└── backend/
-    ├── src/index.js         # Cloudflare Worker API
-    ├── wrangler.toml        # Worker configuration
-    └── test/               # API tests
-```
-
-## Database Schema
-
-```sql
--- Messages
-tbl_messages (
-  message_content TEXT,
-  message_author TEXT,
-  message_date TEXT
-)
-
--- Rate Limiting
-tbl_rate_limits (
-  ip_hash TEXT PRIMARY KEY,
-  last_request TEXT
-)
-```
-
-## API Endpoints
-
-- `PUT /api/v1/leaveMessage` - Submit new message (with reCAPTCHA token)
-- `GET /api/v1/messages` - Retrieve all messages
-- `PUT /posts/uniqueVisitor` - Track unique visitors
-- `GET /api/v1/hackatime` - Hackatime integration
 
 ## Setup & Deployment
 
@@ -143,10 +102,6 @@ Hosted on GitHub Pages. Push to `main` branch to deploy.
 - [Snow Effect](https://codepen.io/keithclark/pen/DjXzBw) - CSS snow animation
 - [Font Awesome](https://fontawesome.com/) - Icon library
 - [Google reCAPTCHA Enterprise](https://cloud.google.com/recaptcha-enterprise) - Bot protection
-
-## License
-
-Personal project. Code available for educational purposes.
 
 ## Contact
 
